@@ -5,18 +5,24 @@ tailsWins=0
 ifHeads=0
 ifTails=1
 counter=0
+function flipCoinSimulation()
+{
+check=$((RANDOM%2))
+counter=$(($counter+1))
+if [ $check -eq $ifHeads ]
+then
+	headsWins=$(($headsWins+1))
+elif [ $check -eq $ifTails ]
+then
+	tailsWins=$(($tailsWins+1))
+fi
+}
+
 while [ $counter -lt 21 ]
 do
-	check=$((RANDOM%2))
-	counter=$(($counter+1))
-	if [ $check -eq $ifHeads ]
-	then
-		headsWins=$(($headsWins+1))
-	elif [ $check -eq $ifTails ]
-	then
-		tailsWins=$(($tailsWins+1))
-	fi
+	flipCoinSimulation
 done
+
 echo "heads win count :- "$headsWins;
 echo "tails wins counts :- "$tailsWins;
 headsMargin=$(($headsWins-$tailsWins))
@@ -27,7 +33,9 @@ then
 elif [ $tailsWins -gt $headsWins ]
 then
 	echo "Tails wins by margin of " $tailsMargin
-elif [ $tailsWins -eq $headsWins ]
+fi
+if [ $tailsWins -eq $headsWins ]
 then
 	echo "its a Tie !" $tailsMargin
+	flipCoinSimulation
 fi
