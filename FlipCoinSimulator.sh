@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Flip Coin Simulation
 This problem displays the winner Heads or Tails"
 headsWins=0
@@ -16,26 +17,36 @@ elif [ $check -eq $ifTails ]
 then
 	tailsWins=$(($tailsWins+1))
 fi
-}
-
-while [ $counter -lt 21 ]
-do
-	flipCoinSimulation
-done
-
-echo "heads win count :- "$headsWins;
-echo "tails wins counts :- "$tailsWins;
 headsMargin=$(($headsWins-$tailsWins))
 tailsMargin=$(($tailsWins-$headsWins))
+}
+function headsTailsCount()
+{
+echo "heads win count :- "$headsWins;
+echo "tails wins counts :- "$tailsWins;
+}
+function displayWinningResult()
+{
+headsTailsCount
 if [ $headsWins -gt $tailsWins ]
 then
 	echo "Heads wins by margin of " $headsMargin
 elif [ $tailsWins -gt $headsWins ]
 then
 	echo "Tails wins by margin of " $tailsMargin
-fi
-if [ $tailsWins -eq $headsWins ]
+elif [ $tailsWins -eq $headsWins ]
 then
-	echo "its a Tie !" $tailsMargin
-	flipCoinSimulation
+	echo "its a Tie !"
+	while [ $tailsMargin -lt 2 ] && [ $headsMargin -lt 2 ]
+	do
+		flipCoinSimulation
+	done
+	displayWinningResult
 fi
+}
+#while [ $counter -lt 22 ]
+while [ $headsWins -lt 21 ] && [ $tailsWins -lt 21 ]
+do
+	flipCoinSimulation
+done
+displayWinningResult
