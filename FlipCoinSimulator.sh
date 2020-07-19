@@ -5,12 +5,19 @@ tailsWins=0
 ifHeads=0
 ifTails=1
 counter=0
-check=$((RANDOM%2))
-counter=$(($counter+1))
-if [ $check -eq $ifHeads ]
-then
-	echo "heads win"
-elif [ $check -eq $ifTails ]
-then
-	echo "tails win"
-fi
+read -p "Enter number of time you want to flip a coin :- " limit
+while [ $counter -lt $limit ]
+do
+	check=$((RANDOM%2))
+	counter=$(($counter+1))
+	if [ $check -eq $ifHeads ]
+	then
+		headsWins=$(($headsWins+1))
+	elif [ $check -eq $ifTails ]
+	then
+		tailsWins=$(($tailsWins+1))
+	fi
+done
+echo "Heads wins $headsWins Times"
+echo "Tails wins $tailsWins Times"
+
