@@ -5,8 +5,7 @@ tailsWins=0
 ifHeads=0
 ifTails=1
 counter=0
-read -p "Enter number of time you want to flip a coin :- " limit
-while [ $counter -lt $limit ]
+while [ $counter -lt 21 ]
 do
 	check=$((RANDOM%2))
 	counter=$(($counter+1))
@@ -18,6 +17,17 @@ do
 		tailsWins=$(($tailsWins+1))
 	fi
 done
-echo "Heads wins $headsWins Times"
-echo "Tails wins $tailsWins Times"
-
+echo "heads win count :- "$headsWins;
+echo "tails wins counts :- "$tailsWins;
+headsMargin=$(($headsWins-$tailsWins))
+tailsMargin=$(($tailsWins-$headsWins))
+if [ $headsWins -gt $tailsWins ]
+then
+	echo "Heads wins by margin of " $headsMargin
+elif [ $tailsWins -gt $headsWins ]
+then
+	echo "Tails wins by margin of " $tailsMargin
+elif [ $tailsWins -eq $headsWins ]
+then
+	echo "its a Tie !" $tailsMargin
+fi
